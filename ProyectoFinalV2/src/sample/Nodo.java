@@ -1,5 +1,4 @@
 package sample;
-
 public class Nodo<T extends Comparable<T>> {
 
     private T elemento;
@@ -42,5 +41,4 @@ public class Nodo<T extends Comparable<T>> {
     public void setDerecho(Nodo<T> derecho) {
         this.derecho = derecho;
     }
-
 }
