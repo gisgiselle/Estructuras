@@ -1,20 +1,50 @@
 package sample;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.geometry.Point2D;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
+//extends StackPane para que haga el posicionamiento del texto y circulo
+public class Drawer<T extends Comparable<T>> extends StackPane {
+    private Nodo<T> nodo;
+    private  Text text;
+    Circle circle;
+    DoubleProperty centerX;
+    DoubleProperty centerY;
+    public double[] coordenada = new double[2];
 
-public class Drawer<T extends Comparable<T>> {
 
-    private Circle c1;
-    private Circle c2;
+    //imprimir circulos
+    public Drawer(double centerX, double centerY, Nodo<T> nodo){
+        //se hace circulo
+        Circle circle = new Circle(centerX,centerY,20);
+        //se van cambiando las variables de coordenadas
+        this.centerX = new SimpleDoubleProperty(centerX);
+        this.centerY= new SimpleDoubleProperty(centerY);
+        //para que pueda ir cambiando
+        this.circle = circle;
+        //se hace el texto, se va a agarrar del elemento del nodo
+        Text text= new Text(nodo.getElemento().toString());
+        this.text=text;
+        text.setBoundsType(TextBoundsType.VISUAL);
+        setLayoutX(centerX-20);
+        setLayoutY(centerY-20);
+        this.getChildren().addAll(circle,text);
+        this.nodo=nodo;
+    }
 
+    public Nodo<T> getNodo() {
+        return nodo;
+    }
 
-
-
-
-
+    public void setNodo(Nodo<T> nodo) {
+        this.nodo = nodo;
+    }
 
     //ARISTAS
     ///Point 2D sirve para representar un punto x y un punto y

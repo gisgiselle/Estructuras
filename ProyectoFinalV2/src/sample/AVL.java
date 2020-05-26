@@ -4,14 +4,19 @@ public class AVL<T extends Comparable<T>> {
 
     private Nodo<T> raiz;
     private int nNodos =0;
+
     public Nodo<T> getRaiz() {
         return raiz;
     }
 
+    public void setRaiz(Nodo<T> raiz) {
+        this.raiz = raiz;
+    }
 
     public void insertar(T elemento){
         raiz=insertarRecursivo(elemento,raiz);
     }
+
 
     private Nodo<T> insertarRecursivo(T elemento, Nodo<T> raiz){
         if(raiz!=null) {
@@ -87,21 +92,27 @@ public class AVL<T extends Comparable<T>> {
             return -1;
         return nodo.getAltura();
     }
+    private Nodo<T> recorreRecursivo(Nodo<T> raiz,T buscando) {
+        if (raiz == null) {
+            return null;
+        }
+        if (buscando.compareTo(raiz.getElemento()) == 0) {
+            return raiz;
+        }
+        if (buscando.compareTo(raiz.getElemento()) > 0) {
+            return recorreRecursivo(raiz.getDerecho(), buscando);
+        } else {
+            return recorreRecursivo(raiz.getIzquierdo(), buscando);
+        }
+    }
 
-    public void altura(T elemento){
-        if(buscarNodo(elemento)==null)
-            System.out.println("El elemento "+elemento+ " del cual quiere la altura no existe en el árbol");
-        else{
-            Nodo<T> temp=raiz;
-            while(elemento.compareTo(temp.getElemento())!=0){
-                if(elemento.compareTo(temp.getElemento())<0){
-                    temp=temp.getIzquierdo();
-                }else{
-                    temp=temp.getDerecho();
-                }
-            }
-            int altura=altura(temp);
-            System.out.println("El elemento "+elemento+ " tiene una altura de: "+altura);
+
+        public int calcularAltura(T buscando){
+        Nodo<T> nodo=recorreRecursivo(raiz,buscando);
+        if(nodo!=null){
+            return nodo.getAltura();
+        }else{
+            return -1;
         }
     }
 
@@ -179,7 +190,23 @@ public class AVL<T extends Comparable<T>> {
 
         return raiz;
     }
+    public int getProfundidad(T buscando){
+        return calcularProfundidadRec(raiz,buscando,0);
+    }
 
+    private int calcularProfundidadRec(Nodo<T> raiz,T buscando,int profundidad){
+        if(raiz==null){
+            return 0;
+        }
+        if(buscando.compareTo(raiz.getElemento())==0){
+            return profundidad;
+        }
+        if(buscando.compareTo(raiz.getElemento())>0){
+            return calcularProfundidadRec(raiz.getDerecho(),buscando,++profundidad);
+        }else{
+            return calcularProfundidadRec(raiz.getIzquierdo(),buscando,++profundidad);
+        }
+    }
     private int factorEquilibrio(Nodo<T> nodo){
         if(nodo==null)
             return 0;
