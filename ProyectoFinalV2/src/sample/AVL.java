@@ -46,7 +46,6 @@ public class AVL<T extends Comparable<T>> {
 
         int altura=max(altura(raiz.getIzquierdo()),altura(raiz.getDerecho()));
         raiz.setAltura(altura+1);
-        System.out.println("la altura es:" +raiz.getAltura());
         return raiz;
 
     }

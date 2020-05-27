@@ -41,4 +41,10 @@ public class Nodo<T extends Comparable<T>> {
     public void setDerecho(Nodo<T> derecho) {
         this.derecho = derecho;
     }
+
+    public boolean isLeaf() {
+
+        return (this.izquierdo == null && this.derecho == null);
+
+    }
 }

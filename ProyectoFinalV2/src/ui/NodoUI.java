@@ -5,7 +5,6 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -15,8 +14,6 @@ import javafx.scene.text.TextBoundsType;
 import javafx.util.Duration;
 import sample.Arista;
 import sample.Nodo;
-
-import java.util.Stack;
 
 public class NodoUI<T extends Comparable<T>> extends StackPane {
     Nodo<T> nodo;
