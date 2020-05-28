@@ -38,30 +38,30 @@ public class AVLVer extends Pane {
     }
     //espacioX step(dinstancia entre dos nodos) en x
     public void verRecursivo(Nodo<String> raiz,  double x, double y, double espacioX) {
-            if (raiz.getIzquierdo() != null) {
-                //dibuja una linea al nodo izquierdo
-                getChildren().add(new Line(x - espacioX, y + espacioY, x, y));
-                verRecursivo(raiz.getIzquierdo(), x - espacioX, y + espacioY, espacioX / 2);
-                System.out.println("entra izquierdo" +raiz.getIzquierdo().getElemento());
-            }
-            //linea al nodo derecho
-            if (raiz.getDerecho() != null) {
-                getChildren().add(new Line(x + espacioX, y + espacioY, x, y));
-                verRecursivo(raiz.getDerecho(), x + espacioX, y + espacioY, espacioX / 2);
-                System.out.println("entra derecho" +raiz.getDerecho().getElemento());
-            }
-            //hace el nodo
-            Circle circle = new Circle(x, y, radio);
-            circle.setFill(Color.CYAN);
-            circle.setStroke(Color.BLACK);
-            getChildren().addAll(circle, new Text(x - 4, y + 4, raiz.getElemento() + ""));
-
+        if (raiz.getIzquierdo() != null) {
+            //dibuja una linea al nodo izquierdo
+            getChildren().add(new Line(x - espacioX, y + espacioY, x, y));
+            verRecursivo(raiz.getIzquierdo(), x - espacioX, y + espacioY, espacioX / 2);
+            System.out.println("entra izquierdo" +raiz.getIzquierdo().getElemento());
         }
-
-        public void yaNoVer(){
-
+        //linea al nodo derecho
+        if (raiz.getDerecho() != null) {
+            getChildren().add(new Line(x + espacioX, y + espacioY, x, y));
+            verRecursivo(raiz.getDerecho(), x + espacioX, y + espacioY, espacioX / 2);
+            System.out.println("entra derecho" +raiz.getDerecho().getElemento());
         }
+        //hace el nodo
+        Circle circle = new Circle(x, y, radio);
+        circle.setFill(Color.CYAN);
+        circle.setStroke(Color.BLACK);
+        getChildren().addAll(circle, new Text(x - 4, y + 4, raiz.getElemento() + ""));
+
     }
+
+    public void yaNoVer(){
+
+    }
+}
 
 
 

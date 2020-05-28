@@ -106,7 +106,7 @@ public class AVL<T extends Comparable<T>> {
     }
 
 
-        public int calcularAltura(T buscando){
+    public int calcularAltura(T buscando){
         Nodo<T> nodo=recorreRecursivo(raiz,buscando);
         if(nodo!=null){
             return nodo.getAltura();

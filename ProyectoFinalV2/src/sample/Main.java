@@ -1,35 +1,45 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ui.NodoUI;
 
+import java.io.FileInputStream;
+
 public class Main extends Application {
     AVL<String> avl = new AVL<>();
     ArbolPrinter<String> arbolPrinter = new ArbolPrinter<>();
-   // NodoUI<String> tempPapa;
+    // NodoUI<String> tempPapa;
     @Override
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Hello World");
         AVLVer avlVer= new AVLVer(avl);
         Pane gp = new Pane();
+        GridPane grid = new GridPane();
         BorderPane bp= new BorderPane();
         VBox vbox = new VBox();
-        TextField cosoAdd = new TextField();
-        Label label= new Label("Ingresa un número");
+        VBox vbox2 = new VBox();
+        HBox hb = new HBox();
+        HBox hb2 = new HBox();
+        Label titulo = new Label("AVL c:");
+
+        TextField cosoAdd = new TextField("Ingresa una letra");;
+
         Button button = new Button("Agregar");
         Button borrar = new Button("Borrar");
-        TextField cosoBorrar = new TextField();
+        TextField cosoBorrar = new TextField("Ingresa lo que quieres borrar");
         arbolPrinter.printNodo(avl.getRaiz());
         //botoncito para agregar
         button.setOnAction(e ->{
@@ -51,12 +61,27 @@ public class Main extends Application {
             }
         });
 
-        vbox.getChildren().addAll(label,cosoAdd,button,avlVer,borrar,cosoBorrar);
+        vbox.getChildren().addAll(hb,hb2);
+        hb.getChildren().addAll(cosoAdd,button);
+        hb.setPadding(new Insets(15, 12, 15, 12));
+        hb2.getChildren().addAll(cosoBorrar,borrar);
+        hb2.setPadding(new Insets(15, 12, 15, 12));
+        hb.setStyle("-fx-background-color: #00ff2e ;");//verde
+        vbox.setAlignment(Pos.CENTER);
+        hb2.setStyle("-fx-background-color: #ff00fb ;");//rosa
+        vbox.setStyle("-fx-background-color: #FF0000;");//rojo
+        grid.setStyle("-fx-background-color: #7800ff ");//morado
+        bp.setStyle("-fx-background-color: #FFFF00;"); //amarillo
+        gp.setStyle("-fx-background-color: #0093ff;");//azul
         avlVer.setMaxWidth(300);
+        vbox2.getChildren().add(avlVer);
         bp.setLeft(vbox);
-        bp.setCenter(gp);
+        bp.setCenter(vbox2);
 
-        primaryStage.setScene(new Scene(bp,1000,1000));
+
+
+
+        primaryStage.setScene(new Scene(bp,900,800));
         primaryStage.show();
         primaryStage.setMinWidth(primaryStage.getWidth());
         primaryStage.setMinHeight(primaryStage.getHeight());
