@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ui.NodoUI;
@@ -23,22 +25,35 @@ public class Main extends Application {
         Pane gp = new Pane();
         BorderPane bp= new BorderPane();
         VBox vbox = new VBox();
-        TextField textField = new TextField();
+        TextField cosoAdd = new TextField();
         Label label= new Label("Ingresa un número");
         Button button = new Button("Agregar");
+        Button borrar = new Button("Borrar");
+        TextField cosoBorrar = new TextField();
         arbolPrinter.printNodo(avl.getRaiz());
         //botoncito para agregar
         button.setOnAction(e ->{
-            Nodo<String> nodo=new Nodo<>(textField.getText());
+            Nodo<String> nodo=new Nodo<>(cosoAdd.getText());
             avl.insertar(nodo.getElemento());
-            avlVer.ver();
+            avlVer.ver(cosoAdd.getText());
         });
-        vbox.getChildren().addAll(label,textField,button,avlVer);
-        vbox.setMaxWidth(200);
-        vbox.setMaxHeight(150);
+        borrar.setOnAction(e ->{
+            try {
+                if (avl.buscarNodo(avl.getRaiz().getElemento()) == null) {
+                    System.out.println("no hay algo que borrar");
+                } else {
+                    avl.borrar(avl.getRaiz(),cosoBorrar.getText());
+                    avlVer.ver(cosoBorrar.getText());
+                    ;
+                }
+            }catch(Exception ex){
+                System.out.println("no");
+            }
+        });
+
+        vbox.getChildren().addAll(label,cosoAdd,button,avlVer,borrar,cosoBorrar);
+        avlVer.setMaxWidth(300);
         bp.setLeft(vbox);
-        bp.setMaxWidth(300);
-        bp.setMaxHeight(200);
         bp.setCenter(gp);
 
         primaryStage.setScene(new Scene(bp,1000,1000));
