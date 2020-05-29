@@ -153,6 +153,7 @@ public class AVL<T extends Comparable<T>> {
             if (raiz.getIzquierdo() == null && raiz.getDerecho() == null) {
                 temp = raiz;
                 raiz= null;
+                return raiz;
             }//caso 2: solo tiene subarbol derecho
             else if (raiz.getIzquierdo() == null) {
                 temp = raiz.getDerecho();
