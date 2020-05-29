@@ -132,8 +132,8 @@ public class AVL<T extends Comparable<T>> {
             return buscarNodoRec(nodo.getIzquierdo(),loQueBusco);
         }
     }
-    public void borrar(Nodo<T> coso, T valor){
-        raiz = borrarRecursivo(coso,valor);
+    public void borrar(T valor){
+        raiz = borrarRecursivo(raiz,valor);
     }
 
     private Nodo<T> borrarRecursivo(Nodo<T> raiz, T valor) {

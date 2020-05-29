@@ -26,8 +26,19 @@ public class AVLVer extends Pane {
     public AVLVer(AVL<String> avl) {
         this.avl = avl;
     }
+
+
     //no le entra nada porque cuando se instancia ahi se mete al arbol c:
     public void ver(String elemento){
+        this.getChildren().clear(); //vaciar borrar el pane
+        if(avl.getRaiz()!= null){
+            //mete la raiz el ancho del pane/2 --> x, y =50, espacio x(step) --> pane/4
+            verRecursivo(avl.getRaiz(),getWidth(),espacioY,getWidth()/2);
+            System.out.println(getWidth());
+
+        }
+    }
+    public void ver(){
         this.getChildren().clear(); //vaciar borrar el pane
         if(avl.getRaiz()!= null){
             //mete la raiz el ancho del pane/2 --> x, y =50, espacio x(step) --> pane/4
@@ -58,9 +69,7 @@ public class AVLVer extends Pane {
 
     }
 
-    public void yaNoVer(){
 
-    }
 }
 
 
