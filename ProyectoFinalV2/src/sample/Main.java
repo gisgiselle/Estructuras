@@ -16,16 +16,18 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import ui.NodoUI;
 
-import java.io.FileInputStream;
-
 public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
     AVL<String> avl = new AVL<>();
     ArbolPrinter<String> arbolPrinter = new ArbolPrinter<>();
     // NodoUI<String> tempPapa;
     @Override
+    
     public void start(Stage primaryStage) throws Exception{
         primaryStage.setTitle("Hello World");
-        AVLVer avlVer= new AVLVer(avl);
+       // AVLVer avlVer= new AVLVer(avl);
         Pane gp = new Pane();
         GridPane grid = new GridPane();
         BorderPane bp= new BorderPane();
@@ -46,14 +48,14 @@ public class Main extends Application {
         button.setOnAction(e ->{
             Nodo<String> nodo=new Nodo<>(cosoAdd.getText());
             avl.insertar(nodo.getElemento());
-            avlVer.ver(cosoAdd.getText());
+           // avlVer.ver(cosoAdd.getText());
         });
 
         //boton para borrar
         borrar.setOnAction(e ->{
             String quieroBorrar = cosoBorrar.getText();
             avl.borrar(quieroBorrar);
-            avlVer.ver(avl.getRaiz().getElemento());
+            //avlVer.ver(avl.getRaiz().getElemento());
         });
 
         vbox.getChildren().addAll(hb,hb2);
@@ -69,8 +71,8 @@ public class Main extends Application {
         gp.setStyle("-fx-background-color: #0093ff;");//azul
         */
         vbox.setAlignment(Pos.CENTER);
-        avlVer.setMaxWidth(300);
-        vbox2.getChildren().add(avlVer);
+       // avlVer.setMaxWidth(300);
+       // vbox2.getChildren().add(avlVer);
         bp.setLeft(vbox);
         bp.setCenter(vbox2);
 
@@ -81,7 +83,5 @@ public class Main extends Application {
         //nodoUi.animate(200,200,a);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 }

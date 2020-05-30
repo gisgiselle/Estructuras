@@ -4,13 +4,19 @@ public class Nodo<T extends Comparable<T>> {
     private T elemento;
     private Nodo<T> izquierdo;
     private Nodo<T> derecho;
-    private int altura;
+    private double altura;
+    private double profundidad;
 
-    public int getAltura() {
+
+    public void setProfundidad(double profundidad) {
+        this.profundidad = profundidad;
+    }
+
+    public double getAltura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(double altura) {
         this.altura = altura;
     }
 

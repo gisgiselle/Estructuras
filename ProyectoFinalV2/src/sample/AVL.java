@@ -1,31 +1,36 @@
 package sample;
 
+import javafx.scene.layout.Pane;
+import ui.NodoUI;
+
 public class AVL<T extends Comparable<T>> {
 
     private Nodo<T> raiz;
-    private int nNodos =0;
+    private NodoUI<T> nodoUI;
+    private final int nNodos =0;
+
 
     public Nodo<T> getRaiz() {
         return raiz;
     }
 
-    public void setRaiz(Nodo<T> raiz) {
+    public void setRaiz(final Nodo<T> raiz) {
         this.raiz = raiz;
     }
 
-    public void insertar(T elemento){
-        raiz=insertarRecursivo(elemento,raiz);
+    public void insertar(final T elemento){
+        raiz=insertar(elemento,raiz);
     }
 
 
-    private Nodo<T> insertarRecursivo(T elemento, Nodo<T> raiz){
+    private Nodo<T> insertar( T elemento, Nodo<T> raiz){
         if(raiz!=null) {
             System.out.println("Entra el nodo: " + elemento + " a la raiz " + raiz.getElemento());
         }
         if(raiz==null){
             raiz = new Nodo<>(elemento);
         }else if(elemento.compareTo(raiz.getElemento())<0){
-            raiz.setIzquierdo(insertarRecursivo(elemento,raiz.getIzquierdo()));
+            raiz.setIzquierdo(insertar(elemento,raiz.getIzquierdo()));
             if(altura(raiz.getIzquierdo())-altura(raiz.getDerecho())==2){
                 if(elemento.compareTo(raiz.getIzquierdo().getElemento())<0){
                     raiz=rotarSimpleALaDerecha(raiz);
@@ -34,7 +39,7 @@ public class AVL<T extends Comparable<T>> {
                 }
             }
         }else if(elemento.compareTo(raiz.getElemento())>0){
-            raiz.setDerecho(insertarRecursivo(elemento,raiz.getDerecho()));
+            raiz.setDerecho(insertar(elemento,raiz.getDerecho()));
             if(altura(raiz.getIzquierdo())-altura(raiz.getDerecho())==-2) {
                 if (elemento.compareTo(raiz.getDerecho().getElemento()) > 0) {
                     raiz = rotarSimpleALaIzquierda(raiz);
@@ -44,24 +49,24 @@ public class AVL<T extends Comparable<T>> {
             }
         }
 
-        int altura=max(altura(raiz.getIzquierdo()),altura(raiz.getDerecho()));
+         double altura=max(altura(raiz.getIzquierdo()),altura(raiz.getDerecho()));
         raiz.setAltura(altura+1);
         return raiz;
 
     }
 
-    private Nodo<T> rotarSimpleALaDerecha(Nodo<T> raiz){
+    private Nodo<T> rotarSimpleALaDerecha( Nodo<T> raiz){
         System.out.println("Rotando simple a la derecha");
-        Nodo<T> temp=raiz.getIzquierdo();
+        final Nodo<T> temp=raiz.getIzquierdo();
         raiz.setIzquierdo(temp.getDerecho());
         temp.setDerecho(raiz);
         raiz.setAltura(max(altura(raiz.getIzquierdo()),altura(raiz.getDerecho()))+1);
         temp.setAltura(max(altura(temp.getIzquierdo()),raiz.getAltura())+1);
         return temp;
     }
-    private Nodo<T> rotarSimpleALaIzquierda(Nodo<T> raiz){
+    private Nodo<T> rotarSimpleALaIzquierda( Nodo<T> raiz){
         System.out.println("Rotando simple a la izquierda");
-        Nodo<T> temp=raiz.getDerecho();
+         Nodo<T> temp=raiz.getDerecho();
         raiz.setDerecho(temp.getIzquierdo());
         temp.setIzquierdo(raiz);
         raiz.setAltura(max(altura(raiz.getIzquierdo()),altura(raiz.getDerecho()))+1);
@@ -69,29 +74,29 @@ public class AVL<T extends Comparable<T>> {
         return temp;
     }
 
-    private Nodo<T> rotarDobleALaDerecha(Nodo<T> raiz){
+    private Nodo<T> rotarDobleALaDerecha( Nodo<T> raiz){
         System.out.println("Rotando doble a la derecha");
         raiz.setIzquierdo(rotarSimpleALaIzquierda(raiz.getIzquierdo()));
         return rotarSimpleALaDerecha(raiz);
     }
-    private Nodo<T> rotarDobleALaIzquierda(Nodo<T> raiz){
+    private Nodo<T> rotarDobleALaIzquierda( Nodo<T> raiz){
         System.out.println("Rotando doble a la izquierda");
         raiz.setDerecho(rotarSimpleALaDerecha(raiz.getDerecho()));
         return rotarSimpleALaIzquierda(raiz);
     }
-    private int max(int a, int b){
+    private double max( double a,  double b){
         if(a>b){
             return a;
         }else{
             return b;
         }
     }
-    private int altura(Nodo<T> nodo){
+    private double altura( Nodo<T> nodo){
         if(nodo==null)
             return -1;
         return nodo.getAltura();
     }
-    private Nodo<T> recorreRecursivo(Nodo<T> raiz,T buscando) {
+    private Nodo<T> recorreRecursivo( Nodo<T> raiz, T buscando) {
         if (raiz == null) {
             return null;
         }
@@ -106,8 +111,8 @@ public class AVL<T extends Comparable<T>> {
     }
 
 
-    public int calcularAltura(T buscando){
-        Nodo<T> nodo=recorreRecursivo(raiz,buscando);
+    public double calcularAltura( T buscando){
+         Nodo<T> nodo=recorreRecursivo(raiz,buscando);
         if(nodo!=null){
             return nodo.getAltura();
         }else{
@@ -116,11 +121,11 @@ public class AVL<T extends Comparable<T>> {
     }
 
 
-    public Nodo<T> buscarNodo(T loQueBusco){
+    public Nodo<T> buscarNodo( T loQueBusco){
         return buscarNodoRec(raiz, loQueBusco);
     }
 
-    private Nodo<T> buscarNodoRec(Nodo<T> nodo,T loQueBusco){
+    private Nodo<T> buscarNodoRec( Nodo<T> nodo, T loQueBusco){
         if(nodo==null) {
             return null;
         }
@@ -132,11 +137,11 @@ public class AVL<T extends Comparable<T>> {
             return buscarNodoRec(nodo.getIzquierdo(),loQueBusco);
         }
     }
-    public void borrar(T valor){
+    public void borrar( T valor){
         raiz = borrarRecursivo(raiz,valor);
     }
 
-    private Nodo<T> borrarRecursivo(Nodo<T> raiz, T valor) {
+    private Nodo<T> borrarRecursivo(Nodo<T> raiz,  T valor) {
         //caso base
         if (raiz == null) return raiz;
         //voy a buscar el elemento a borrar en el lado izq
@@ -171,7 +176,7 @@ public class AVL<T extends Comparable<T>> {
             }
 
             raiz.setAltura(max(altura(raiz.getIzquierdo()),altura(raiz.getDerecho()))+1);
-            int facEquilibrio=factorEquilibrio(raiz);
+             double facEquilibrio=factorEquilibrio(raiz);
             if(facEquilibrio==2){
                 if(valor.compareTo(raiz.getIzquierdo().getElemento())<0) {
                     raiz = rotarSimpleALaDerecha(raiz);
@@ -190,13 +195,13 @@ public class AVL<T extends Comparable<T>> {
 
         return raiz;
     }
-    public int getProfundidad(T buscando){
+    public double getProfundidad( T buscando){
         return calcularProfundidadRec(raiz,buscando,0);
     }
 
-    private int calcularProfundidadRec(Nodo<T> raiz,T buscando,int profundidad){
+    private double calcularProfundidadRec( Nodo<T> raiz, T buscando,double profundidad){
         if(raiz==null){
-            return 0;
+            return profundidad;
         }
         if(buscando.compareTo(raiz.getElemento())==0){
             return profundidad;
@@ -207,13 +212,13 @@ public class AVL<T extends Comparable<T>> {
             return calcularProfundidadRec(raiz.getIzquierdo(),buscando,++profundidad);
         }
     }
-    private int factorEquilibrio(Nodo<T> nodo){
+    private double factorEquilibrio( Nodo<T> nodo){
         if(nodo==null)
             return 0;
         return altura(nodo.getIzquierdo())-altura(nodo.getDerecho());
     }
 
-    private Nodo<T> minNodo(Nodo<T> nodo){
+    private Nodo<T> minNodo( Nodo<T> nodo){
         Nodo<T> temp=nodo;
         while(temp.getIzquierdo()!=null){
             temp=temp.getIzquierdo();
@@ -221,23 +226,23 @@ public class AVL<T extends Comparable<T>> {
         return temp;
 
     }
-    private T minValor(Nodo<T> nodo) {
+    private T minValor( Nodo<T> nodo) {
         if (nodo.getIzquierdo() != null)
             return minValor(nodo.getIzquierdo());
         else return nodo.getElemento();
     }
 
-    private boolean noBalanceado(Nodo<T> nodo) {
+    private boolean noBalanceado( Nodo<T> nodo) {
         if (altura(nodo.getIzquierdo()) - altura(nodo.getDerecho()) == 2 || altura(nodo.getIzquierdo()) - altura(nodo.getDerecho()) == -2)
             return true;
         return false;
     }
 
-    private void recorridoPre(Nodo<T> raiz){
+    private void recorridoPre( Nodo<T> raiz){
         recorridoPreRec(raiz);
     }
 
-    private void recorridoPreRec(Nodo<T> raiz){
+    private void recorridoPreRec( Nodo<T> raiz){
         if(raiz == null)
             return;
         recorridoPreRec(raiz.getIzquierdo());   //recorre subarbol izquierdo

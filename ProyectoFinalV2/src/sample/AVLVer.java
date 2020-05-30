@@ -9,25 +9,39 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+public class AVLVer<T extends Comparable<T>> extends Pane {
+   // private double espacioY = 50; //espacioY step(dinstancia entre dos nodos) en y
+    private AVL<T> avl;
+    private Pane gp;
+    private double profundidad=0;
+    private double altura=0;
 
-public class AVLVer extends Pane {
-    private AVL<String> avl = new AVL<>();
-    private double radio = 20;
-    private double espacioY = 50; //espacioY step(dinstancia entre dos nodos) en y
-
-    public AVL<String> getAvl() {
-        return avl;
-    }
-
-    public void setAvl(AVL<String> avl) {
+     public AVLVer(AVL<T> avl,  Pane gp){
         this.avl = avl;
+        this.gp = gp;
+        
+     }
+
+
+     public void agregarUI(NodoUI<T> nUI){
+         avl.insertar(nUI.getNodo().getElemento());
+         gp.getChildren().add(nUI);
+         //falta agregar la animacion bruh
+     }
+
+    public void animar(NodoUI<T> nUI){
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1),nUI);
+        //hasta aquí va a llegar la transition en Y
+        transition.setByY(avl.getProfundidad(nUI.getNodo().getElemento())*30);
+        profundidad=0;
+       
     }
 
-    public AVLVer(AVL<String> avl) {
+    /*
+        public AVLVer(AVL<T> avl) {
         this.avl = avl;
-    }
-
-
+    } 
+    
     //no le entra nada porque cuando se instancia ahi se mete al arbol c:
     public void ver(String elemento){
         this.getChildren().clear(); //vaciar borrar el pane
@@ -39,7 +53,7 @@ public class AVLVer extends Pane {
         }
     }
     public void ver(){
-        this.getChildren().clear(); //vaciar borrar el pane
+       this.getChildren().clear(); //vaciar borrar el pane
         if(avl.getRaiz()!= null){
             //mete la raiz el ancho del pane/2 --> x, y =50, espacio x(step) --> pane/4
             verRecursivo(avl.getRaiz(),getWidth(),espacioY,getWidth()/2);
@@ -66,10 +80,9 @@ public class AVLVer extends Pane {
         circle.setFill(Color.CYAN);
         circle.setStroke(Color.BLACK);
         getChildren().addAll(circle, new Text(x - 4, y + 4, raiz.getElemento() + ""));
-
     }
 
-
+*/
 }
 
 
