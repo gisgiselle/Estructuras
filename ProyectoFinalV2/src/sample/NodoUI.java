@@ -1,8 +1,6 @@
 package sample;
 
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,21 +11,15 @@ import javafx.scene.text.TextBoundsType;
 import javafx.util.Duration;
 
 public class NodoUI<T extends Comparable<T>> extends Pane {
-    Nodo<T> nodo;
+    private AVL<T> avl;
     private Line linea;
     private double radio = 20;
     private double centerX;
     private double centerY;
+    private Arista arista;
     Circle c;
     Text t;
 
-    public Nodo<T> getNodo() {
-        return nodo;
-    }
-
-    public void setNodo(Nodo<T> nodo) {
-        this.nodo = nodo;
-    }
     public double getCenterX() {
         return centerX;
     }
@@ -49,15 +41,18 @@ public class NodoUI<T extends Comparable<T>> extends Pane {
         this.c=circle;
         this.centerX = centerX;
         this.centerY = centerY;
+        this.nodo = nodo;
         Text text= new Text(nodo.getElemento().toString());
         this.t=text;
         text.setBoundsType(TextBoundsType.VISUAL);
-        text.setFill(Color.WHITE);
+        text.setFill(Color.WHITE); 
+        StackPane stack = new StackPane();
         //para que el texto quede en el centro del circulo
-        setLayoutX(centerX-radio);
-        setLayoutY(centerY-radio);
-        this.getChildren().addAll(circle,text);
-        this.nodo = nodo;
+       
+        stack.setLayoutX(centerX-radio);
+        stack.setLayoutY(centerY-radio);
+        stack.getChildren().addAll(circle,text);
+        this.getChildren().addAll(arista,stack);
     }
     
 }

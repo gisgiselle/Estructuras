@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.scene.shape.Line;
-import ui.NodoUI;
 
 public class Arista extends Line {
 

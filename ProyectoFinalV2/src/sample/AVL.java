@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.scene.layout.Pane;
-import ui.NodoUI;
 
 public class AVL<T extends Comparable<T>> {
 
@@ -9,9 +8,14 @@ public class AVL<T extends Comparable<T>> {
     private AVLVer<T> avlVer;
     private final int nNodos =0;
 
+    public AVL(AVLVer<T> avlVer){
+        this.avlVer=avlVer;
+    }
+
     public AVLVer<T> getAVLVer(){
         return avlVer;
     }
+
     public Nodo<T> getRaiz() {
         return raiz;
     }

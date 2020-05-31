@@ -1,13 +1,21 @@
 package sample;
 public class Nodo<T extends Comparable<T>> {
 
+    private NodoUI<T> nodoUI; 
     private T elemento;
     private Nodo<T> izquierdo;
     private Nodo<T> derecho;
     private double altura;
     private double profundidad;
 
+    public NodoUI<T> getUI() {
+        return nodoUI;
+    }
 
+    public void setUI(NodoUI<T> nodoUI) {
+        this.nodoUI = nodoUI;
+    }
+    
     public void setProfundidad(double profundidad) {
         this.profundidad = profundidad;
     }

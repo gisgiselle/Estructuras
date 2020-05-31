@@ -12,12 +12,61 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class AVLVer<T extends Comparable<T>> extends Pane {
-   // private double espacioY = 50; //espacioY step(dinstancia entre dos nodos) en y
-    private AVL<T> avl;
-    private Pane gp;
-    private double profundidad=0;
-    
 
+    private NodoUI<T> nUI;
+    private Pane gp;
+    private double count;
+
+    public void animar(NodoUI<T> nUI){
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1),nUI);
+        //hasta aquí va a llegar la transition en Y
+        transition.setByY(30);
+        transition.setCycleCount(1);
+        transition.play();
+        count=0;
+        transition.setOnFinished(new MyEventHandler(count, nUI));
+    } 
+    
+    public void animarRec(NodoUI<T> nUI){
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), nUI);
+        transition.setByY(nUI.getCenterY()+30);
+        transition.setCycleCount(1);
+        transition.play();
+        System.out.println("index "+count);
+        transition.setOnFinished(new MyEventHandler(count, nUI));
+    }
+
+    class MyEventHandler implements EventHandler<ActionEvent>{
+
+        double pos;
+        NodoUI<T> nodoUI;
+        double centerY;
+        public MyEventHandler(double profundidad, NodoUI<T> nodoUI) {
+            this.pos = profundidad;
+            this.nodoUI=nodoUI;
+        }
+
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println(pos);
+            TranslateTransition transition= new TranslateTransition(Duration.seconds(1),nodoUI);
+            nodoUI.setCenterY(nodoUI.getCenterY()+30);
+            transition.setByY(nodoUI.getCenterY());
+
+            System.out.println("Center y:" +nodoUI.getCenterY());
+            transition.setCycleCount(1);
+            transition.play();
+
+            count++;
+
+            if(count<avl.getProfundidad(nodoUI.getNodo().getElemento())){
+                //if(nodoUI.nodo.getElemento()<)
+                animarRec(nodoUI);
+            }
+        }
+    }
+    
+ /*--------------------------------------------------------------------------------------------------------------------
      public AVLVer(AVL<T> avl,  Pane gp){
         this.avl = avl;
         this.gp = gp;
@@ -27,52 +76,34 @@ public class AVLVer<T extends Comparable<T>> extends Pane {
      public void agregarUI(NodoUI<T> nUI){
          avl.insertar(nUI.getNodo().getElemento());
          gp.getChildren().add(nUI);
-         //falta agregar la animacion bruh
+        animar(nUI);
      }
 
-    public void animar(NodoUI<T> nUI){
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1),nUI);
-        //hasta aquí va a llegar la transition en Y
-        transition.setByY(30);
-        transition.setCycleCount(1);
-        transition.play();
-        profundidad=0;
-        transition.setOnFinished(new MyEventHandler(profundidad, nUI));
-    } 
-    
-    class MyEventHandler implements EventHandler<ActionEvent>{
+/*
+    private Nodo<T> papaUI(AVL<T> avl, T elemento){
+        Nodo<T> tempRaiz = avl.getRaiz();
+        Nodo<T> tempPapa = avl.getRaiz();
 
-        double pos;
-        NodoUI nodoUI;
-        double centerY = nodoUI.getCenterY();
-
-        public MyEventHandler(double profundidad, NodoUI nodoUI) {
-            this.pos = profundidad;
-            this.nodoUI=nodoUI;
-        }
-
-        @Override
-        public void handle(ActionEvent event) {
-            System.out.println(pos);
-            TranslateTransition transition= new TranslateTransition(Duration.seconds(1),nodoUI);
-            this.centerY = avl.getProfundidad(nodoUI.get).centerY.doubleValue();
-            transition.setByY(nodoUI.centerY.doubleValue());
-
-            System.out.println("Center y:"+nodoUI.centerY);
-            transition.setCycleCount(1);
-
-            transition.play();
-            currentIndex++;
-            if(currentIndex<lista.size()){
-                animarRec(nodoUI);
+        System.out.println("elemento "+elemento);
+        while(tempRaiz.getElemento() != elemento){
+            System.out.println("temp raiz elemento" +tempRaiz.getElemento());
+            tempPapa = tempRaiz;
+            System.out.println("avl Raiz "+avl.getRaiz().getElemento());
+            if(tempRaiz.getElemento().compareTo(avl.getRaiz().getElemento())<0){
+                System.out.println("temp raiz " +tempRaiz);
+                tempRaiz.setElemento(avl.getRaiz().getIzquierdo().getElemento());
+                System.out.println("temp raiz2 " +tempRaiz);
+            }else if(tempRaiz.getElemento().compareTo(avl.getRaiz().getElemento())>0){
+                tempRaiz.setElemento(avl.getRaiz().getDerecho().getElemento());
+            }
+            else{
+                return tempPapa;
             }
         }
+        return tempPapa;
     }
-
-
-
-    //no puedo usar este porque borra el arbol cada vez que se muestra tons no sirve para animar :(
-    /*
+-------------------------------------------------------------------------------------------------------------------------------
+    no puedo usar este porque borra el arbol cada vez que se muestra tons no sirve para animar :(
         public AVLVer(AVL<T> avl) {
         this.avl = avl;
     } 
