@@ -6,10 +6,12 @@ import ui.NodoUI;
 public class AVL<T extends Comparable<T>> {
 
     private Nodo<T> raiz;
-    private NodoUI<T> nodoUI;
+    private AVLVer<T> avlVer;
     private final int nNodos =0;
 
-
+    public AVLVer<T> getAVLVer(){
+        return avlVer;
+    }
     public Nodo<T> getRaiz() {
         return raiz;
     }
